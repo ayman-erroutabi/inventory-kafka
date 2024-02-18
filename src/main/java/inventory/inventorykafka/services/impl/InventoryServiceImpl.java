@@ -40,7 +40,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void processOrder(OrderDTO orderDTO, String topicName) {
-        log.warn(topicName + " : processOrder with " + orderDTO.toString());
+        log.debug(topicName + " : processOrder with " + orderDTO.toString());
         this.kafkaTemplate.send(topicName, orderDTO);
     }
 

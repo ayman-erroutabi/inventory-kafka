@@ -1,5 +1,8 @@
 package inventory.inventorykafka.entities;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
+@Data
+@NoArgsConstructor
 public class InventoryEntity {
 
     @Id
@@ -16,26 +21,4 @@ public class InventoryEntity {
     @Column(name = "available_qty")
     private int availableQuantity;
 
-    public InventoryEntity() {
-    }
-
-    public InventoryEntity(int availableQuantity) {
-        this.availableQuantity = availableQuantity;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getAvailableQuantity() {
-        return availableQuantity;
-    }
-
-    public void setAvailableQuantity(int availableQuantity) {
-        this.availableQuantity = availableQuantity;
-    }
 }

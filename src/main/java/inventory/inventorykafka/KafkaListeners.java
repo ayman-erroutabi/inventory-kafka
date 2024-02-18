@@ -24,7 +24,7 @@ public class KafkaListeners {
     @KafkaListener(topics= KafkaConstants.KAFKA_TOPIC_ORDERS, groupId = KafkaConstants.KAFKA_GROUP_ID_DEMO, containerFactory = "orderFactory")
     void listener(OrderDTO data){
         boolean areProductsAvailable = true;
-        log.warn("Listener received : " + data + "!");
+        log.debug("Listener received : " + data + "!");
         HashMap<Long, Integer> toUpdateInventory = new HashMap<>();
         if(!Objects.isNull(data)){
             for ( OrderItemDTO orderItem : data.getOrderItemEntities() ) {
@@ -37,7 +37,6 @@ public class KafkaListeners {
                 toUpdateInventory.put(orderItem.getProductEntity().getId() , this.inventoryService.getProductQuantity(orderItem.getProductEntity().getId()) - orderItem.getQuantity());
             }
         }
-        log.warn(String.valueOf(areProductsAvailable));
         if(areProductsAvailable){
             toUpdateInventory.forEach((id, qty) -> this.inventoryService.updateInventory(qty,id));
             this.inventoryService.processOrder(data, KafkaConstants.KAFKA_TOPIC_ORDERS_PROCESSED);
